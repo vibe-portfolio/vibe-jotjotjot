@@ -21,6 +21,8 @@ import {
   AlignCenter,
   AlignRight,
   Sparkles,
+  Share2,
+  Check,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -74,6 +76,8 @@ export default function RichTextEditor() {
   const [content, setContent] = useState("")
   const editorRef = useRef<HTMLDivElement>(null)
   const [activeFormats, setActiveFormats] = useState<Set<string>>(new Set())
+  const [isSharing, setIsSharing] = useState(false)
+  const [shareSuccess, setShareSuccess] = useState(false)
 
   const execCommand = useCallback((command: string, value?: string) => {
     document.execCommand(command, false, value)
@@ -127,6 +131,39 @@ export default function RichTextEditor() {
       execCommand("createLink", url)
     }
   }, [execCommand])
+
+  const handleShare = useCallback(async () => {
+    if (!content || content.trim() === "") {
+      alert("Please write something before sharing!")
+      return
+    }
+
+    setIsSharing(true)
+    setShareSuccess(false)
+
+    try {
+      const response = await fetch("/api/share", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      })
+
+      if (!response.ok) throw new Error("Failed to create share")
+
+      const { shareUrl } = await response.json()
+
+      // Copy to clipboard
+      await navigator.clipboard.writeText(shareUrl)
+
+      setShareSuccess(true)
+      setTimeout(() => setShareSuccess(false), 3000)
+    } catch (error) {
+      console.error("Error sharing:", error)
+      alert("Failed to create share link. Please try again.")
+    } finally {
+      setIsSharing(false)
+    }
+  }, [content])
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-[#0A0A0A] relative">
@@ -240,6 +277,38 @@ export default function RichTextEditor() {
               <Code2 className="h-4 w-4" />
             </ToolbarButton>
           </div>
+
+          <Separator orientation="vertical" className="h-6 mx-3 bg-white/20" />
+
+          <Button
+            onClick={handleShare}
+            disabled={isSharing || !content}
+            className={cn(
+              "h-9 px-4 transition-all duration-300 hover:scale-105",
+              "bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 rounded-xl",
+              "hover:bg-cyan-500/30 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/30",
+              "text-cyan-300 font-medium text-sm",
+              "disabled:opacity-50 disabled:cursor-not-allowed",
+              shareSuccess && "bg-green-500/30 border-green-400/50"
+            )}
+          >
+            {isSharing ? (
+              <span className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-cyan-300 border-t-transparent rounded-full animate-spin" />
+                Sharing...
+              </span>
+            ) : shareSuccess ? (
+              <span className="flex items-center gap-2">
+                <Check className="h-4 w-4" />
+                Copied!
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                <Share2 className="h-4 w-4" />
+                Share
+              </span>
+            )}
+          </Button>
         </div>
 
         <div className="relative">
