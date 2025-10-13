@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!response.ok) {
       return {
-        title: "JotJot - Share not found",
+        title: "jotjotjot - Share not found",
         description: "This shared note could not be found.",
       }
     }
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const plainText = content.replace(/<[^>]*>/g, "").substring(0, 160)
 
     return {
-      title: `${plainText.substring(0, 60)}... | JotJot`,
+      title: `${plainText.substring(0, 60)}... | jotjotjot`,
       description: plainText,
       openGraph: {
         title: `${plainText.substring(0, 60)}...`,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             url: `/api/og?content=${encodeURIComponent(content)}`,
             width: 1200,
             height: 630,
-            alt: "Shared note from JotJot",
+            alt: "Shared note from jotjotjot",
           },
         ],
       },
@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } catch (error) {
     console.error("Error generating metadata:", error)
     return {
-      title: "JotJot - Beautiful writing, beautifully shared",
-      description: "A minimalist rich text editor with beautiful sharing.",
+      title: "jotjotjot - Beautiful writing, beautifully shared",
+      description: "A beautiful rich text editor with viral-ready sharing.",
     }
   }
 }

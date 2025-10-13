@@ -95,7 +95,7 @@ export default function SharedView({ id }: { id: string }) {
             <div className="p-2 bg-cyan-500/20 backdrop-blur-sm rounded-xl border border-cyan-400/30">
               <Sparkles className="h-4 w-4 text-cyan-300" />
             </div>
-            <span className="text-sm font-semibold text-white/90 font-sans">Shared from JotJot</span>
+            <span className="text-sm font-semibold text-white/90 font-sans">Shared from jotjotjot</span>
           </div>
 
           <Link href="/">
@@ -137,7 +137,7 @@ export default function SharedView({ id }: { id: string }) {
         <div className="flex items-center justify-center px-8 py-6 bg-white/5 backdrop-blur-xl border-t border-white/10 text-sm text-white/60 relative">
           <span className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-cyan-300" />
-            Created with JotJot - Beautiful writing, beautifully shared
+            Created with jotjotjot - Beautiful writing, beautifully shared
           </span>
         </div>
       </div>

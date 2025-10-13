@@ -1,6 +1,6 @@
-# JotJot ✨
+# jotjotjot ✨
 
-A beautiful, minimalist rich text editor with viral-ready sharing capabilities. Write beautifully, share everywhere.
+A beautiful rich text editor with viral-ready sharing capabilities. Write beautifully, share everywhere.
 
 ## Features
 

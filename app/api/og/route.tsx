@@ -95,7 +95,7 @@ export async function GET(request: Request) {
               >
                 ✨
               </div>
-              <span>Created with JotJot</span>
+              <span>Created with jotjotjot</span>
             </div>
           </div>
         </div>

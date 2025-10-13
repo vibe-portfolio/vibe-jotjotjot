@@ -284,3 +284,13 @@
     backdrop-filter: blur(20px);
   }
 }
+
+/* Hide scrollbar for toolbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -13,9 +13,12 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Minimalist Rich Text Editor",
-  description: "A beautiful, minimalist rich text editor",
-  generator: "v0.app",
+  title: "jotjotjot - Beautiful writing, beautifully shared",
+  description: "A beautiful rich text editor with viral-ready sharing. Write beautifully, share everywhere.",
+  icons: {
+    icon: "/jotjotjot.png",
+    apple: "/jotjotjot.png",
+  },
 }
 
 export default function RootLayout({

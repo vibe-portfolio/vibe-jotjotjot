@@ -5,6 +5,14 @@ import { useState, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+import Image from "next/image"
+import {
   Type,
   Bold,
   Italic,
@@ -23,6 +31,8 @@ import {
   Sparkles,
   Share2,
   Check,
+  ChevronDown,
+  MoreHorizontal,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -173,15 +183,13 @@ export default function RichTextEditor() {
         {/* Subtle inner glow */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-cyan-500/5 rounded-3xl" />
 
-        <div className="flex items-center gap-2 p-6 bg-white/5 backdrop-blur-xl border-b border-white/10 relative">
-          <div className="flex items-center gap-1">
-            <div className="flex items-center gap-2 mr-4">
-              <div className="p-2 bg-cyan-500/20 backdrop-blur-sm rounded-xl border border-cyan-400/30">
-                <Sparkles className="h-4 w-4 text-cyan-300" />
-              </div>
-              <span className="text-sm font-semibold text-white/90 font-sans">Rich Editor</span>
-            </div>
+        <div className="flex items-center gap-2 p-4 md:p-6 bg-white/5 backdrop-blur-xl border-b border-white/10 relative overflow-x-auto">
+          <div className="flex items-center gap-2 mr-4 flex-shrink-0">
+            <Image src="/jotjotjot.png" alt="jotjotjot" width={32} height={32} className="rounded-lg" />
+            <span className="text-sm font-semibold text-white/90 font-sans">jotjotjot</span>
+          </div>
 
+          <div className="flex items-center gap-1 flex-shrink-0">
             <ToolbarButton
               onClick={() => execCommand("formatBlock", "<h1>")}
               isActive={activeFormats.has("h1")}
@@ -205,35 +213,35 @@ export default function RichTextEditor() {
             </ToolbarButton>
           </div>
 
-          <Separator orientation="vertical" className="h-6 mx-3 bg-white/20" />
+          <Separator orientation="vertical" className="h-6 mx-2 bg-white/20 flex-shrink-0" />
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 flex-shrink-0">
             <ToolbarButton
               onClick={() => execCommand("bold")}
               isActive={activeFormats.has("bold")}
-              title="Bold (Ctrl+B)"
+              title="Bold (⌘B)"
             >
               <Bold className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => execCommand("italic")}
               isActive={activeFormats.has("italic")}
-              title="Italic (Ctrl+I)"
+              title="Italic (⌘I)"
             >
               <Italic className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => execCommand("underline")}
               isActive={activeFormats.has("underline")}
-              title="Underline (Ctrl+U)"
+              title="Underline (⌘U)"
             >
               <Underline className="h-4 w-4" />
             </ToolbarButton>
           </div>
 
-          <Separator orientation="vertical" className="h-6 mx-3 bg-white/20" />
+          <Separator orientation="vertical" className="h-6 mx-2 bg-white/20 flex-shrink-0" />
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 flex-shrink-0">
             <ToolbarButton
               onClick={() => execCommand("insertUnorderedList")}
               isActive={activeFormats.has("ul")}
@@ -253,23 +261,9 @@ export default function RichTextEditor() {
             </ToolbarButton>
           </div>
 
-          <Separator orientation="vertical" className="h-6 mx-3 bg-white/20" />
+          <Separator orientation="vertical" className="h-6 mx-2 bg-white/20 flex-shrink-0" />
 
-          <div className="flex items-center gap-1">
-            <ToolbarButton onClick={() => execCommand("justifyLeft")} title="Align Left">
-              <AlignLeft className="h-4 w-4" />
-            </ToolbarButton>
-            <ToolbarButton onClick={() => execCommand("justifyCenter")} title="Align Center">
-              <AlignCenter className="h-4 w-4" />
-            </ToolbarButton>
-            <ToolbarButton onClick={() => execCommand("justifyRight")} title="Align Right">
-              <AlignRight className="h-4 w-4" />
-            </ToolbarButton>
-          </div>
-
-          <Separator orientation="vertical" className="h-6 mx-3 bg-white/20" />
-
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 flex-shrink-0">
             <ToolbarButton onClick={insertLink} title="Insert Link">
               <Link2 className="h-4 w-4" />
             </ToolbarButton>
@@ -278,29 +272,29 @@ export default function RichTextEditor() {
             </ToolbarButton>
           </div>
 
-          <Separator orientation="vertical" className="h-6 mx-3 bg-white/20" />
+          <Separator orientation="vertical" className="h-6 mx-2 bg-white/20 flex-shrink-0" />
 
           <Button
             onClick={handleShare}
             disabled={isSharing || !content}
             className={cn(
-              "h-9 px-4 transition-all duration-300 hover:scale-105",
-              "bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 rounded-xl",
-              "hover:bg-cyan-500/30 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/30",
-              "text-cyan-300 font-medium text-sm",
+              "h-9 px-4 transition-all duration-300 hover:scale-105 flex-shrink-0",
+              "bg-cyan-500/30 backdrop-blur-md border border-cyan-400/50 rounded-xl",
+              "hover:bg-cyan-500/40 hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-500/30",
+              "text-white font-medium text-sm",
               "disabled:opacity-50 disabled:cursor-not-allowed",
               shareSuccess && "bg-green-500/30 border-green-400/50"
             )}
           >
             {isSharing ? (
               <span className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-cyan-300 border-t-transparent rounded-full animate-spin" />
-                Sharing...
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span className="hidden sm:inline">Sharing...</span>
               </span>
             ) : shareSuccess ? (
               <span className="flex items-center gap-2">
                 <Check className="h-4 w-4" />
-                Copied!
+                <span className="hidden sm:inline">Copied!</span>
               </span>
             ) : (
               <span className="flex items-center gap-2">
