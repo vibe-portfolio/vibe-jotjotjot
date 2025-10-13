@@ -33,6 +33,7 @@ import {
   Check,
   ChevronDown,
   MoreHorizontal,
+  Github,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -178,6 +179,30 @@ export default function RichTextEditor() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-[#0A0A0A] relative">
       <AnimatedBackground />
+
+      {/* Social links in corner */}
+      <div className="fixed bottom-6 right-6 flex items-center gap-3 z-50">
+        <a
+          href="https://github.com/vdutts7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl hover:bg-white/20 hover:border-white/30 hover:scale-110 transition-all duration-300 group"
+          title="GitHub @vdutts7"
+        >
+          <Github className="h-5 w-5 text-white/80 group-hover:text-white" />
+        </a>
+        <a
+          href="https://x.com/vdutts7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl hover:bg-white/20 hover:border-white/30 hover:scale-110 transition-all duration-300 group"
+          title="X @vdutts7"
+        >
+          <svg className="h-5 w-5 text-white/80 group-hover:text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+      </div>
 
       <div className="w-full max-w-4xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl shadow-black/40 overflow-hidden relative z-10">
         {/* Subtle inner glow */}
