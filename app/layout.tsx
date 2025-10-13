@@ -13,7 +13,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "jotjotjot - Beautiful writing, beautifully shared",
+  title: "jotjotjot | think, write, share",
   description: "A beautiful rich text editor with viral-ready sharing. Write beautifully, share everywhere.",
   icons: {
     icon: "/jotjotjot.png",
